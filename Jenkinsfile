@@ -14,19 +14,23 @@ pipeline {
         } 
         stage('Test') {
             steps {
-                sh 'mvn test;'
-                sh "echo 'shell scripts to run static tests...';"
+                withMaven(maven :'maven'){
+                    echo 'scripts to run tests...'
+                    bat 'mvn test'
+                    
             }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
+        }
+        stage('Code Check') {
+            steps {
+                withMaven(maven :'maven'){
+                    echo 'Running code check....'
+                    bat 'mvn sonar:sonar'
+                    
             }
         }
         stage('Deliver') {
             steps {
-                sh '/jenkins/scripts/deliver.sh;'
-                sh "echo 'Deploying the application now...';"
+                echo 'Deploying the application now...'
             }
         }
     }
