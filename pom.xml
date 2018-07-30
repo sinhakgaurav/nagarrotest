@@ -25,14 +25,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <scm>
-	<connection>scm:git:git@git.nagarro.com:devopscoe/training/kumarsinha.git</connection>
-	<url>scm:git:git@git.nagarro.com:devopscoe/training/kumarsinha.git</url>
-	<developerConnection>scm:git:git@git.nagarro.com:devopscoe/training/kumarsinha.git</developerConnection>
-  </scm>
-  
-  <build>
+<build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
