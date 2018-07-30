@@ -3,8 +3,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mvn clean install;'
-                sh "echo 'shell scripts to build project...';"
+                withMaven(maven:'maven')
+                bat 'mvn clean install;'
+                bat "echo 'shell scripts to build project...';"
             }
         }
         stage('Test') {
