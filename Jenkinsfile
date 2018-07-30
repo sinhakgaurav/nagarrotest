@@ -17,7 +17,7 @@ pipeline {
                 withMaven(maven :'maven'){
                     echo 'scripts to run tests...'
                     bat 'mvn test'
-                    
+                }    
             }
         }
         stage('Code Check') {
@@ -25,7 +25,7 @@ pipeline {
                 withMaven(maven :'maven'){
                     echo 'Running code check....'
                     bat 'mvn sonar:sonar'
-                    
+                }
             }
         }
         stage('Deliver') {
