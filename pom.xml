@@ -48,6 +48,17 @@
 	        <plugin>
 	          <artifactId>maven-jar-plugin</artifactId>
 	          <version>3.0.2</version>
+			          <configuration>
+				          <archive>
+				             <index>true</index>
+				             <manifest>
+				                <addClasspath>true</addClasspath>
+				             </manifest>
+				             <manifestEntries>
+				                <Implementation-Version>${build.number}</Implementation-Version>
+				             </manifestEntries>
+				          </archive>
+				        </configuration>
 	        </plugin>
 	        <plugin>
 	          <artifactId>maven-install-plugin</artifactId>
@@ -60,5 +71,15 @@
 	      	</plugin>
       	</plugins>
     </pluginManagement>
+	    <repositories>
+      <repository>
+         <id>CLAESTOR</id>
+         <name>CLAESTOR-snapshots</name>
+         <snapshots>
+                    <enabled>true</enabled>
+         </snapshots>
+         <url>http://your_ip_address:8081/artifactory/snapshots</url>
+      </repository>
+    </repositories>
   </build>
 </project>
