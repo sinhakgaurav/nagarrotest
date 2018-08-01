@@ -71,7 +71,9 @@
 	      	</plugin>
       	</plugins>
     </pluginManagement>
-	    <repositories>
+	    
+  </build>
+  <repositories>
       <repository>
          <id>CLAESTOR</id>
          <name>CLAESTOR-snapshots</name>
@@ -81,5 +83,4 @@
          <url>http://your_ip_address:8081/artifactory/snapshots</url>
       </repository>
     </repositories>
-  </build>
 </project>
