@@ -30,7 +30,7 @@ pipeline {
         }
         stage ('Artifactory Deploy'){
             steps{
-                dir("C:\Users\kumarsinha\devops"){
+                dir("devops"){
                     script {
                         def server = Artifactory.server('artifactory')
                         def rtMaven = Artifactory.newMavenBuild()
