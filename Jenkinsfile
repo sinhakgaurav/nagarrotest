@@ -32,7 +32,7 @@ pipeline {
             steps{
                 dir("devops"){
                     script {
-                        def server = Artifactory.server('artifactory')
+                        def server = Artifactory.server('artifactory server')
                         def rtMaven = Artifactory.newMavenBuild()
                         rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
                         rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
