@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+	tools {
+        maven "Maven 3.5.4"
+    }
     stages {
         
         stage('Build') {
@@ -36,7 +38,7 @@ pipeline {
                         def rtMaven = Artifactory.newMavenBuild()
                         rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
                         rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
-                        
+                        rtMaven.tool = 'maven'
                         def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'install'
                         server.publishBuildInfo buildInfo
                     }
