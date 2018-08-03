@@ -74,9 +74,9 @@ pipeline {
 					
 					buildInfo.append buildInfo1
 					
-					buildInfo.retention maxBuilds: 10, maxDays: 7, deleteBuildArtifacts: false
+					buildInfo.retention maxBuilds: 10, maxDays: 7, deleteBuildArtifacts: true
 					server.upload spec: uploadSpec, buildInfo: buildInfo
-					//server.download spec: downloadSpec, buildInfo: buildInfo
+					server.download spec: downloadSpec, buildInfo: buildInfo
 					server.publishBuildInfo buildInfo
 
 
