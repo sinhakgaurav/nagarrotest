@@ -3,16 +3,16 @@ pipeline {
 	
     stages {
         
-        stage('Build') {
+        stage('Maven is Compiling Application') {
             steps{
                 withMaven(maven :'maven'){
-                    echo 'build step'
+                    echo 'compiling application step'
                     bat 'mvn clean compile'
                 }
             }
 
         } 
-        stage('Test') {
+        stage('Junit is Performing Test') {
             steps {
                 withMaven(maven :'maven'){
                     echo 'scripts to run tests...'
@@ -20,7 +20,7 @@ pipeline {
                 }    
             }
         }
-        stage('Code Check') {
+        stage('Sonar is Analysing Code') {
             steps {
                 withMaven(maven :'maven'){
                     echo 'Running code check....'
@@ -28,7 +28,7 @@ pipeline {
                 }
             }
         }
-        stage ('Artifactory Deploy'){
+        stage ('Deploying Artifacts'){
             steps{
 				withMaven(maven :'maven'){
                     echo 'Running code check....'
