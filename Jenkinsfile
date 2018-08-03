@@ -69,8 +69,7 @@ pipeline {
 					buildInfo.env.collect()
 					buildInfo.retention maxBuilds: 10, maxDays: 7, deleteBuildArtifacts: false
 
-					Artifactory.addInteractivePromotion server: server, promotionConfig: promotionConfig, displayName: "Promotions Time" //this need human interaction to promote
-					echo "Build Completed Successfully and Promotions are manual"
+					echo "Build Completed Successfully"
 				}
                 
             }
