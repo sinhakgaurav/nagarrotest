@@ -29,8 +29,7 @@ pipeline {
             }
         }
         stage ('Deploying Artifacts'){
-            steps{
-				script {
+            
 					def server = Artifactory.server 'default'
 					def buildInfo = Artifactory.newBuildInfo()
 					buildInfo.env.capture = true
@@ -42,9 +41,7 @@ pipeline {
 					buildInfo.retention maxBuilds: 10, maxDays: 7, deleteBuildArtifacts: true 
 				  // Publish build info.
 					server.publishBuildInfo buildInfo
-				}
-                
-            }
+			
         }
     }
 }
