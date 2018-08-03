@@ -30,6 +30,7 @@ pipeline {
         }
         stage ('Deploying Artifacts'){
             steps{
+				echo 'deploying artifacts'
 				script {
 					//Artifactory server instance declaration   
 					def server = Artifactory.server 'default' //server1 is the Server ID given to Artifactory server in Jenkins
@@ -68,26 +69,6 @@ pipeline {
 					buildInfo.env.collect()
 					buildInfo.retention maxBuilds: 10, maxDays: 7, deleteBuildArtifacts: false
 
-					// Build Promotion Section
-					def promotionConfig = [
-						// Mandatory parameters
-						'buildName'          : buildInfo.name,
-						'buildNumber'        : buildInfo.number,
-						'targetRepo'         : 'libs-snapshot-local',
-
-						// Optional parameters
-						'comment'            : 'deploy SUCCESSFULLY COMPLETED',
-						'sourceRepo'         : 'devops',
-						'status'             : 'Released',
-						'includeDependencies': true,
-						'copy'               : true,
-						// 'failFast' is true by default.
-						// Set it to false, if you don't want the promotion to abort upon receiving the first error.
-						'failFast'           : true
-					]
-
-					// Promote build
-					//server.promote promotionConfig //this promotes the build automatically to the target specified in promotionConfig 
 					Artifactory.addInteractivePromotion server: server, promotionConfig: promotionConfig, displayName: "Promotions Time" //this need human interaction to promote
 					echo "Build Completed Successfully and Promotions are manual"
 				}
