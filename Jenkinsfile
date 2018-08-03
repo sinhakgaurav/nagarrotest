@@ -55,7 +55,7 @@ pipeline {
 
 					//Capturing the artifacts from Artifactory server to download it into Jenkins machine at /var/lib/jenkins/workspace/JF/jarFile/
 					def downloadSpec = """{
-						"files": [libs-snapshot-local/
+						"files": [
 							{
 								"pattern": "forkgettingready/DevopsTask-1.2-SNAPSHOT.jar",
 								"target": "jarFile/" 
