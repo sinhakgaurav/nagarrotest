@@ -29,19 +29,70 @@ pipeline {
             }
         }
         stage ('Deploying Artifacts'){
-            
-					def server = Artifactory.server 'default'
-					def buildInfo = Artifactory.newBuildInfo()
-					buildInfo.env.capture = true
-					buildInfo.env.collect()
-					def rtMaven = Artifactory.newMavenBuild()
-					rtMaven.tool = 'maven'
-					rtMaven.deployer releaseRepo:'Maven-repo-Pipeline', snapshotRepo:'Maven-repo-Pipeline', server: server
-					rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
-					buildInfo.retention maxBuilds: 10, maxDays: 7, deleteBuildArtifacts: true 
-				  // Publish build info.
-					server.publishBuildInfo buildInfo
-			
+            steps{
+				script {
+					//Artifactory server instance declaration   
+    def server = Artifactory.server 'default' //server1 is the Server ID given to Artifactory server in Jenkins
+
+    //Capturing the Build artifacts from Build server to upload
+    def uploadSpec = """{
+        "files": [
+            {
+                "pattern": "Users\kumarsinha\.jenkins\workspace\forkgettingready\devops\target\*.jar",
+                "target": "fortna_sample/"
+            }
+        ]
+    }"""
+    server.upload(uploadSpec)
+
+    //Capturing the artifacts from Artifactory server to download it into Jenkins machine at /var/lib/jenkins/workspace/JF/jarFile/
+    def downloadSpec = """{
+        "files": [
+            {
+                "pattern": "devops/sampleproject-0.0.1-SNAPSHOT.jar",
+                "target": "jarFile/" 
+            }
+        ]
+    }"""
+    server.download(downloadSpec)
+
+
+    //Publishing build info to Artifactory - Method 2
+    def buildInfo = Artifactory.newBuildInfo()
+    server.upload spec: uploadSpec, buildInfo: buildInfo
+    //server.download spec: downloadSpec, buildInfo: buildInfo
+    server.publishBuildInfo buildInfo
+
+    //Capturing Environment variables
+    buildInfo.env.capture = true
+    buildInfo.env.collect()
+    buildInfo.retention maxBuilds: 10, maxDays: 7, deleteBuildArtifacts: true
+
+    // Build Promotion Section
+    def promotionConfig = [
+        // Mandatory parameters
+        'buildName'          : buildInfo.name,
+        'buildNumber'        : buildInfo.number,
+        'targetRepo'         : 'libs-release-local',
+
+        // Optional parameters
+        'comment'            : 'deploy SUCCESSFULLY COMPLETED',
+        'sourceRepo'         : 'devops',
+        'status'             : 'Released',
+        'includeDependencies': false,
+        'copy'               : false,
+        // 'failFast' is true by default.
+        // Set it to false, if you don't want the promotion to abort upon receiving the first error.
+        'failFast'           : true
+    ]
+
+    // Promote build
+    //server.promote promotionConfig //this promotes the build automatically to the target specified in promotionConfig 
+    Artifactory.addInteractivePromotion server: server, promotionConfig: promotionConfig, displayName: "Promotions Time" //this need human interaction to promote
+    echo "Build Completed Successfully and Promotions are manual"
+				}
+                
+            }
         }
     }
 }
