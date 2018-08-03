@@ -30,7 +30,6 @@ pipeline {
         }
         stage ('Deploying Artifacts'){
             steps{
-				echo 'deploying artifacts'
 				script {
 					//Artifactory server instance declaration   
 					def server = Artifactory.server 'default' //server1 is the Server ID given to Artifactory server in Jenkins
@@ -60,16 +59,17 @@ pipeline {
 
 					//Publishing build info to Artifactory - Method 2
 					def buildInfo = Artifactory.newBuildInfo()
-					server.upload spec: uploadSpec, buildInfo: buildInfo
-					//server.download spec: downloadSpec, buildInfo: buildInfo
-					server.publishBuildInfo buildInfo
-
+					
 					//Capturing Environment variables
 					buildInfo.env.capture = true
 					buildInfo.env.collect()
 					buildInfo.retention maxBuilds: 10, maxDays: 7, deleteBuildArtifacts: false
+					server.upload spec: uploadSpec, buildInfo: buildInfo
+					//server.download spec: downloadSpec, buildInfo: buildInfo
+					server.publishBuildInfo buildInfo
 
-					echo "Build Completed Successfully"
+
+					echo "Build Completed Successfully and Promotions are manual"
 				}
                 
             }
