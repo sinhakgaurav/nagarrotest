@@ -25,12 +25,11 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
   <distributionManagement>
     <snapshotRepository>
         <id>snapshots</id>
         <name>kuma3146710-snapshots</name>
-        <url>http://localhost:8081/artifactory/libs-snapshot</url>
+        <url>http://localhost:8081/artifactory/libs-snapshot-local</url>
     </snapshotRepository>
 </distributionManagement>
 <build>
