@@ -30,17 +30,19 @@ pipeline {
         }
         stage ('Deploying Artifacts'){
             steps{
-				def server = Artifactory.server 'default'
-    def buildInfo = Artifactory.newBuildInfo()
-    buildInfo.env.capture = true
-    buildInfo.env.collect()
-    def rtMaven = Artifactory.newMavenBuild()
-    rtMaven.tool = 'Maven3'
-    rtMaven.deployer releaseRepo:'Maven-repo-Pipeline', snapshotRepo:'Maven-repo-Pipeline', server: server
-    rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
-    buildInfo.retention maxBuilds: 10, maxDays: 7, deleteBuildArtifacts: true 
-  // Publish build info.
-    server.publishBuildInfo buildInfo 
+				script {
+					def server = Artifactory.server 'default'
+					def buildInfo = Artifactory.newBuildInfo()
+					buildInfo.env.capture = true
+					buildInfo.env.collect()
+					def rtMaven = Artifactory.newMavenBuild()
+					rtMaven.tool = 'Maven3'
+					rtMaven.deployer releaseRepo:'Maven-repo-Pipeline', snapshotRepo:'Maven-repo-Pipeline', server: server
+					rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
+					buildInfo.retention maxBuilds: 10, maxDays: 7, deleteBuildArtifacts: true 
+				  // Publish build info.
+					server.publishBuildInfo buildInfo
+				}
                 
             }
         }
