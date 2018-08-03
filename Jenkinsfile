@@ -49,7 +49,7 @@ pipeline {
     def downloadSpec = """{
         "files": [
             {
-                "pattern": "devops/DevopsTask-1.2-SNAPSHOT.jar",
+                "pattern": "forkgettingready/DevopsTask-1.2-SNAPSHOT.jar",
                 "target": "jarFile/" 
             }
         ]
