@@ -38,8 +38,8 @@ pipeline {
     def uploadSpec = """{
         "files": [
             {
-                "pattern": "Users\kumarsinha\.jenkins\workspace\forkgettingready\devops\target\*.jar",
-                "target": "fortna_sample/"
+                "pattern": "/Users/kumarsinha.jenkins/workspace/forkgettingready/target/*.jar",
+                "target": "devops/"
             }
         ]
     }"""
@@ -49,7 +49,7 @@ pipeline {
     def downloadSpec = """{
         "files": [
             {
-                "pattern": "devops/sampleproject-0.0.1-SNAPSHOT.jar",
+                "pattern": "devops/DevopsTask-1.2-SNAPSHOT.jar",
                 "target": "jarFile/" 
             }
         ]
