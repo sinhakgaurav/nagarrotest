@@ -41,7 +41,7 @@ pipeline {
 					
 					rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
 					rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
-					def buildInfo1 = rtMaven.run pom: 'pom.xml', goals: 'clean install'
+					def buildInfo1 = rtMaven.run pom: 'pom.xml', goals: 'clean install -Dmaven.repo.local=.m2'
 					
 					def uploadSpec = """{
 						"files": [
