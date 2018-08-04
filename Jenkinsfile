@@ -41,12 +41,12 @@ pipeline {
 					
 					rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
 					rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
-					def buildInfo1 = rtMaven.run pom: 'pom.xml', goals: 'clean deploy -Dmaven.repo.local=.m2'
+					def buildInfo1 = rtMaven.run pom: 'pom.xml', goals: 'clean install'
 					
 					def uploadSpec = """{
 						"files": [
 							{
-								"pattern": "/workspace/forkgettingready/target/*.xml",
+								"pattern": "/workspace/forkgettingready/target/*.jar",
 								"target": "devops/"
 							}
 						]
@@ -57,7 +57,7 @@ pipeline {
 					def downloadSpec = """{
 						"files": [
 							{
-								"pattern": "com/mycompany/DevopsTask/3.0-SNAPSHOT/DevopsTask-3.0-SNAPSHOT.pom",
+								"pattern": "forkgettingready/DevopsTask-1.2-SNAPSHOT.jar",
 								"target": "jarFile/" 
 							}
 						]
@@ -72,7 +72,7 @@ pipeline {
 					buildInfo.env.capture = true
 					buildInfo.env.collect()
 					
-					buildInfo.append buildInfo1
+					buildInfo1.append buildInfo
 					
 					buildInfo.retention maxBuilds: 10, maxDays: 7, deleteBuildArtifacts: true
 					server.upload spec: uploadSpec, buildInfo: buildInfo
