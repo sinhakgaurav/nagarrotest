@@ -57,7 +57,7 @@ pipeline {
 					def downloadSpec = """{
 						"files": [
 							{
-								"pattern": "forkgettingready/*.pom",
+								"pattern": "com/mycompany/DevopsTask/3.0-SNAPSHOT/DevopsTask-3.0-SNAPSHOT.pom",
 								"target": "jarFile/" 
 							}
 						]
