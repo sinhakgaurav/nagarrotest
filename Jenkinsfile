@@ -57,12 +57,12 @@ pipeline {
 					def downloadSpec = """{
 						"files": [
 							{
-								"pattern": "forkgettingready/DevopsTask-1.2-SNAPSHOT.jar",
+								"pattern": "com/mycompany/DevopsTask/3.0-SNAPSHOT/DevopsTask-3.0-SNAPSHOT.pom",
 								"target": "jarFile/" 
 							}
 						]
 					}"""
-					server.download(downloadSpec)
+					buildInfo1.append server.download(downloadSpec)
 
 
 					//Publishing build info to Artifactory - Method 2
@@ -72,7 +72,7 @@ pipeline {
 					buildInfo.env.capture = true
 					buildInfo.env.collect()
 					
-					buildInfo1.append buildInfo
+					buildInfo.append buildInfo1
 					
 					buildInfo.retention maxBuilds: 10, maxDays: 7, deleteBuildArtifacts: true
 					server.upload spec: uploadSpec, buildInfo: buildInfo
