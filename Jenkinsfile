@@ -41,12 +41,12 @@ pipeline {
 					
 					rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
 					rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
-					def buildInfo1 = rtMaven.run pom: 'pom.xml', goals: 'clean install -Dmaven.repo.local=.m2'
+					def buildInfo1 = rtMaven.run pom: 'pom.xml', goals: 'clean deploy -Dmaven.repo.local=.m2'
 					
 					def uploadSpec = """{
 						"files": [
 							{
-								"pattern": "/workspace/forkgettingready/target/*.jar",
+								"pattern": "/workspace/forkgettingready/target/*.xml",
 								"target": "devops/"
 							}
 						]
@@ -57,7 +57,7 @@ pipeline {
 					def downloadSpec = """{
 						"files": [
 							{
-								"pattern": "forkgettingready/DevopsTask-1.2-SNAPSHOT.jar",
+								"pattern": "forkgettingready/*.pom",
 								"target": "jarFile/" 
 							}
 						]
