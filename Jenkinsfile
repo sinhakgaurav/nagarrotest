@@ -1,6 +1,11 @@
 pipeline {
     agent any
 	
+	environment {
+		registry = "sinhakgaurav/devops"
+		registryCredential = 'dockerhub'
+	}
+	
     stages {
         
         stage('Maven is Compiling Application') {
@@ -94,9 +99,9 @@ pipeline {
 		stage('Deploy to Dockerhub') {
 			steps {
 				script {
-					withDockerRegistry([credentialsId: 'dockerhub', url: '']) {
-						sh 'docker tag dockerim kumarsinha/devops:dockerim'  
-						sh 'docker push kumarsinha/devops:dockerim'
+					withDockerRegistry([credentialsId: registryCredential, url: '']) {
+						sh 'docker tag dockerim registry:dockerim'  
+						sh 'docker push registry:dockerim'
 					}
 				}
 			}
