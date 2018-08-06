@@ -95,8 +95,8 @@ pipeline {
 			steps {
 				script {
 					withDockerRegistry([credentialsId: 'dockerhub', url: '']) {
-						sh 'docker tag dockerim sourabhbh/devops:dockerim'  
-						sh 'docker push sourabhbh/devops:dockerim'
+						sh 'docker tag dockerim kumarsinha/devops:dockerim'  
+						sh 'docker push kumarsinha/devops:dockerim'
 					}
 				}
 			}
@@ -104,10 +104,4 @@ pipeline {
 	}
 }
 
-success {
-	mail(from: "noreply@kumar.pro", 
-	   to: "kumar.sinha@nagarro.com", 
-	   subject: "That build passed.",
-	   body: "Nothing to see here")
-}
 
