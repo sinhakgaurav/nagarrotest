@@ -93,10 +93,13 @@ pipeline {
 			}
 		stage('Deploy to Dockerhub') {
 			steps {
-			script {
-				withDockerRegistry([credentialsId: 'dockerhub', url: '']) {
-				sh 'docker tag dockerim sourabhbh/devops:dockerim'  
-				sh 'docker push sourabhbh/devops:dockerim'
+				script {
+					withDockerRegistry([credentialsId: 'dockerhub', url: '']) {
+						sh 'docker tag dockerim sourabhbh/devops:dockerim'  
+						sh 'docker push sourabhbh/devops:dockerim'
+					}
+				}
+			}
 		}
 	}
 }
