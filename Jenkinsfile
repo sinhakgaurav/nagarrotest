@@ -85,6 +85,13 @@ pipeline {
                 
             }
         }
+		
+		success {
+			mail(from: "noreply@kumar.pro", 
+			   to: "kumar.sinha@nagarro.com", 
+			   subject: "That build passed.",
+			   body: "Nothing to see here")
+		}
     }
 }
 
