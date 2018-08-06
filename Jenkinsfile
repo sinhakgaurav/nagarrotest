@@ -86,7 +86,19 @@ pipeline {
             }
         }
 		
-    }
+		stage('Build Image') {
+			steps {
+			    sh 'docker build -t dockerim .'
+				}
+			}
+		stage('Deploy to Dockerhub') {
+			steps {
+			script {
+				withDockerRegistry([credentialsId: 'dockerhub', url: '']) {
+				sh 'docker tag dockerim sourabhbh/devops:dockerim'  
+				sh 'docker push sourabhbh/devops:dockerim'
+		}
+	}
 }
 
 success {
