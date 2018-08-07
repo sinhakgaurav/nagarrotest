@@ -91,21 +91,6 @@ pipeline {
             }
         }
 		
-		stage('Build Image') {
-			steps {
-			    sh 'docker build -t dockerim .'
-				}
-			}
-		stage('Deploy to Dockerhub') {
-			steps {
-				script {
-					withDockerRegistry([credentialsId: registryCredential, url: '']) {
-						sh 'docker tag dockerim registry:dockerim'  
-						sh 'docker push registry:dockerim'
-					}
-				}
-			}
-		}
 	}
 }
 
