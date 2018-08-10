@@ -92,7 +92,7 @@ pipeline {
         }
 		stage('Build Image') {
 			steps {
-			    sh 'docker build -t dockerim .'
+			    sh 'docker build -t dockerim http://localhost:8081/artifactory/libs-snapshot-local/com/mycompany/DevopsTask/3.0-SNAPSHOT/DevopsTask-3.0-SNAPSHOT.jar'
 				}
 			}
 		
