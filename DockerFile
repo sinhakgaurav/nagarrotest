@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8
 MAINTAINER gaurav sinha <sinha.kgaurav@gmail.com
 # Add Maven dependencies (not shaded into the artifact; Docker-cached)
 ADD target/DevopsTask-3.0-SNAPSHOT.jar           /target/DevopsTask_image
