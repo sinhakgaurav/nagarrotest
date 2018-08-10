@@ -4,4 +4,4 @@ MAINTAINER gaurav sinha <sinha.kgaurav@gmail.com
 ADD target/DevopsTask-3.0-SNAPSHOT.jar           /target/DevopsTask_image
 # Add the service itself
 ARG JAR_FILE
-ADD /target/DevopsTask-3.0-SNAPSHOT.jar /target/DevopsTask_image/DevopsTask-3.0-SNAPSHOT.jar
+ADD /target/DevopsTask-3.0-SNAPSHOT.jar /target/DevopsTask_image/
